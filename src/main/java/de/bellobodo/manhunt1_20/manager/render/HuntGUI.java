@@ -3,8 +3,6 @@ package de.bellobodo.manhunt1_20.manager.render;
 import de.bellobodo.guilibrary.builder.SimpleGUIBuilder;
 import de.bellobodo.guilibrary.guis.SimpleGUI;
 import de.bellobodo.manhunt1_20.Manhunt1_20;
-import de.bellobodo.manhunt2.Manhunt2;
-import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
