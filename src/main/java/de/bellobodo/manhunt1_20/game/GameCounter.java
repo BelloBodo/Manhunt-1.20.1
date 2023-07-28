@@ -15,7 +15,7 @@ public class GameCounter<T extends JavaPlugin> extends Counter {
 
     @Override
     public void run() {
-        //TODO Delete
+        //TODO Counter
         Bukkit.getOnlinePlayers().forEach(players -> {
             players.sendMessage("GameCounter");
         });
