@@ -2,3 +2,15 @@ name: Manhunt-1.20.1
 version: '${project.version}'
 main: de.bellobodo.manhunt1_20.Manhunt1_20
 api-version: '1.20'
+commands:
+  hunt:
+    aliases:
+      - manhunt
+    permission: manhunt.hunt
+    description: Ändere deine Rolle in Manhunt.
+  changeplayerrole:
+    aliases:
+      - role
+      - playerrole
+    permission: manhunt.changeplayerrole
+    description: Ändere deine Rolle in Manhunt.

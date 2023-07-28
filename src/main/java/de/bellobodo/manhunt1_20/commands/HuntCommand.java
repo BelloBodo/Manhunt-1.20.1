@@ -15,15 +15,11 @@ public class HuntCommand implements CommandExecutor {
         this.instance = instance;
     }
 
-    private HuntGUI huntGUI;
-
-
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (!(commandSender instanceof Player player)) return true;
 
-        if (huntGUI != null) huntGUI.openInventory(player);
-        else huntGUI = new HuntGUI(instance);
+        instance.getHuntGUI().openInventory(player);
 
         return true;
     }

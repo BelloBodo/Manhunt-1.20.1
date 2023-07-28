@@ -19,7 +19,7 @@ public class PlayerManager {
 
     public boolean addSpeedrunner(UUID uuid) {
         boolean speedrunnerAlreadyExists = false;
-        for (Speedrunner speedrunner : speedrunners) {
+        for (Speedrunner speedrunner : this.speedrunners) {
             if (speedrunner.getUUID() == uuid) {
                 speedrunnerAlreadyExists = true;
                 break;
@@ -27,7 +27,10 @@ public class PlayerManager {
         }
 
         if (!speedrunnerAlreadyExists) {
-            speedrunners.add(new Speedrunner(uuid));
+            this.speedrunners.add(new Speedrunner(uuid));
+
+            removeSpectator(uuid);
+
             return true;
         }
         return false;
@@ -35,8 +38,8 @@ public class PlayerManager {
 
     public boolean removeSpeedrunner(UUID uuid) {
         int speedrunnerExistsIndex = -1; // Initialwert für den Index des gefundenen Eintrags
-        for (int i = 0; i < speedrunners.size(); i++) {
-            Speedrunner speedrunner = speedrunners.get(i);
+        for (int i = 0; i < this.speedrunners.size(); i++) {
+            Speedrunner speedrunner = this.speedrunners.get(i);
             if (speedrunner.getUUID() == uuid) {
                 speedrunnerExistsIndex = i;
                 break;
@@ -44,21 +47,21 @@ public class PlayerManager {
         }
 
         if (speedrunnerExistsIndex != -1) {
-            speedrunners.remove(speedrunnerExistsIndex);
+            this.speedrunners.remove(speedrunnerExistsIndex);
             return true;
         }
         return false;
     }
 
     public void updateSpeedrunners() {
-        for (Speedrunner speedrunner : speedrunners) {
+        for (Speedrunner speedrunner : this.speedrunners) {
             speedrunner.updateLocation();
         }
     }
 
     public boolean isSpeedrunner(UUID uuid) {
         boolean uuidIsSpeedrunner = false;
-        for (Speedrunner speedrunner : speedrunners) {
+        for (Speedrunner speedrunner : this.speedrunners) {
             if (speedrunner.getUUID() == uuid) {
                 uuidIsSpeedrunner = true;
                 break;
@@ -68,8 +71,21 @@ public class PlayerManager {
         return uuidIsSpeedrunner;
     }
 
+    public boolean addSpectator(UUID uuid) {
+        if (this.spectators.add(uuid)) {
+            removeSpeedrunner(uuid);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeSpectator(UUID uuid) {
+        return this.spectators.remove(uuid);
+    }
+
+
     public boolean isSpectator(UUID uuid) {
-        return spectators.contains(uuid);
+        return this.spectators.contains(uuid);
     }
 
     public boolean isHunter(UUID uuid) {
