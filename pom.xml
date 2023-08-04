@@ -67,7 +67,7 @@
         <dependency>
             <groupId>de.bellobodo</groupId>
             <artifactId>gui-library</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0-SNAPSHOT_1.20</version>
             <scope>system</scope>
             <systemPath>${basedir}/libraries/gui-library-1.0-SNAPSHOT_1.20.jar</systemPath>
         </dependency>

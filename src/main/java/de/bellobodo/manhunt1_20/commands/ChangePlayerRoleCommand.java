@@ -117,9 +117,11 @@ public class ChangePlayerRoleCommand implements CommandExecutor {
                     player.sendMessage(instance.getPrefix() + ChatColor.GREEN + "Du bist nun ein Hunter.");
                 }
             }
+            default -> sendUsage(player);
         }
         return true;
     }
+
 
     private void sendUsage(Player player) {
         player.sendMessage(instance.getPrefix() + ChatColor.GRAY + "Verwende" + ChatColor.DARK_GRAY + ": "

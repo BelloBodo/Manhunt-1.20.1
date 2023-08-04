@@ -15,6 +15,6 @@ public class InventoryClickListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-
+        instance.getHuntGUI().inventoryClick(event);
     }
 }

@@ -4,6 +4,7 @@ import de.bellobodo.guilibrary.builder.SimpleGUIBuilder;
 import de.bellobodo.guilibrary.guis.SimpleGUI;
 import de.bellobodo.manhunt1_20.Manhunt1_20;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -25,64 +26,67 @@ public class HuntGUI {
     }
 
     public void openInventory(final Player player) {
-        if (gui != null) player.openInventory(gui.getGUIInventory());
-        else {
-            ArrayList<ItemStack> optionItems = new ArrayList<>();
+        if (gui == null) {
+                ArrayList<ItemStack> optionItems = new ArrayList<>();
 
-            {
-                ItemStack itemStack = new ItemStack(Material.GREEN_CONCRETE);
+                {
+                    ItemStack itemStack = new ItemStack(Material.GREEN_CONCRETE);
 
-                ItemMeta itemMeta = itemStack.getItemMeta();
+                    ItemMeta itemMeta = itemStack.getItemMeta();
 
-                itemMeta.setDisplayName(ChatColor.GREEN + "Starten");
-                ArrayList<String> lore = new ArrayList<>();
-                lore.add(ChatColor.DARK_GRAY + "Startet Manhunt mit den");
-                lore.add(ChatColor.DARK_GRAY + "aktuellen Einstellungen");
+                    itemMeta.setDisplayName(ChatColor.GREEN + "Starten");
+                    ArrayList<String> lore = new ArrayList<>();
+                    lore.add(ChatColor.GRAY + "Startet Manhunt");
 
-                itemMeta.setLore(lore);
+                    itemMeta.setLore(lore);
 
-                itemStack.setItemMeta(itemMeta);
+                    itemStack.setItemMeta(itemMeta);
 
-                optionItems.add(itemStack);
+                    optionItems.add(itemStack);
+                }
+                {
+                    ItemStack itemStack = new ItemStack(Material.YELLOW_CONCRETE);
+
+                    ItemMeta itemMeta = itemStack.getItemMeta();
+
+                    itemMeta.setDisplayName(ChatColor.YELLOW + "Pausieren");
+                    ArrayList<String> lore = new ArrayList<>();
+                    lore.add(ChatColor.GRAY + "Pausiert Manhunt");
+
+                    itemMeta.setLore(lore);
+
+                    itemStack.setItemMeta(itemMeta);
+
+                    optionItems.add(itemStack);
+                }
+                {
+                    ItemStack itemStack = new ItemStack(Material.RED_CONCRETE);
+
+                    ItemMeta itemMeta = itemStack.getItemMeta();
+
+                    itemMeta.setDisplayName(ChatColor.RED + "Stoppen");
+                    ArrayList<String> lore = new ArrayList<>();
+                    lore.add(ChatColor.GRAY + "Stoppt Manhunt");
+
+                    itemMeta.setLore(lore);
+
+                    itemStack.setItemMeta(itemMeta);
+
+                    optionItems.add(itemStack);
+                }
+
+                gui = new SimpleGUIBuilder().createSimpleGUI(optionItems, null, "Manhunt");
             }
-            {
-                ItemStack itemStack = new ItemStack(Material.YELLOW_CONCRETE);
-
-                ItemMeta itemMeta = itemStack.getItemMeta();
-
-                itemMeta.setDisplayName(ChatColor.YELLOW + "Pausieren");
-                ArrayList<String> lore = new ArrayList<>();
-                lore.add(ChatColor.DARK_GRAY + "Pausiert Manhunt wenn");
-                lore.add(ChatColor.DARK_GRAY + "Manhunt gestartet wurde.");
-
-                itemMeta.setLore(lore);
-
-                itemStack.setItemMeta(itemMeta);
-
-                optionItems.add(itemStack);
-            }
-            {
-                ItemStack itemStack = new ItemStack(Material.RED_CONCRETE);
-
-                ItemMeta itemMeta = itemStack.getItemMeta();
-
-                itemMeta.setDisplayName(ChatColor.RED + "Stoppen");
-                ArrayList<String> lore = new ArrayList<>();
-                lore.add(ChatColor.DARK_GRAY + "Stoppt Manhunt wenn");
-                lore.add(ChatColor.DARK_GRAY + "Manhunt aktuell läuft.");
-
-                itemMeta.setLore(lore);
-
-                itemStack.setItemMeta(itemMeta);
-
-                optionItems.add(itemStack);
-            }
-
-            gui = new SimpleGUIBuilder().createSimpleGUI(optionItems, null, "Manhunt");
-        }
+        player.openInventory(gui.getGUIInventory());
     }
 
     public void inventoryClick(InventoryClickEvent event) {
+        int result = gui.getInventoryClick(event);
 
+        if (result == -1) return;
+
+        Player player = Bukkit.getPlayer(event.getWhoClicked().getName());
+
+        player.sendMessage(String.valueOf(result));
     }
 }
